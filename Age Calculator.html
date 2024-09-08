@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age | Calculator</title>
+    <link rel="stylesheet" href="Age calcultor.css">
+    <script src="https://kit.fontawesome.com/c4f2629b15.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <h2>
+                Javascript <br><span>Age Calculator</span>
+            </h2>
+                <div class="InputCalculator">
+                    <input type="date" id="date">
+                    <button onclick="CalculateAge()">Calculate</button>
+                </div>
+                <p id="Age"></p>
+        </div>
+
+    </div>
+    <script>
+        let userInput = document.getElementById("date");
+        userInput.max = new Date().toISOString().split("T")[0];
+
+        let Age = document.getElementById("Age")
+
+        function CalculateAge() {
+            let birthDate = new Date(userInput.value);
+
+            let D1 = birthDate.getDate();
+            let M1 = birthDate.getMonth();
+            let Y1 = birthDate.getFullYear();
+
+            let today = new Date();
+
+            let D2 = today.getDate();
+            let M2 = today.getMonth() + 1;
+            let Y2 = today.getFullYear();
+
+            let D3, M3, Y3;
+
+            Y3 = Y2 - Y1;
+            if(M2 >= M1){
+                M3 = M2 - M1;
+            } else {
+                Y3--;
+                M3 = 12 + M2 - M1
+            }
+
+            if (D2 >= D1) {
+                D3 = D2 -D1;
+            } else {
+                M3--;
+                D3 = getDaysOfMonth(Y1, M1) + D2 -D1
+            }
+           Age.innerHTML = ` You are <span>${Y3}</span> Years, <span>${M3}</span> Months and <span>${D3}</span> days `
+        }
+
+        function getDaysOfMonth(Year, Month) {
+            return new Date(Year, Month, 0).getDate();
+        }
+    </script>
+</body>
+</html>
